@@ -2,10 +2,10 @@
 
 ## Project Overview
 
-This repository is currently an empty project workspace. It contains no source
-code, tests, assets, dependency manifest, or version-control history yet.
-Contributors should establish conventions with the first implementation and
-update this guide when tooling or directory structure is introduced.
+This repository currently contains only this contributor guide. It has no
+source code, tests, assets, or dependency manifest yet. Contributors should
+establish conventions with the first implementation and update this guide when
+tooling or directory structure is introduced.
 
 ## Project Structure & Module Organization
 
@@ -47,10 +47,10 @@ added.
 
 ## Commit & Pull Request Guidelines
 
-There is no Git history from which to infer a commit convention. Use concise,
-imperative commit subjects, such as `Add authentication form`. Keep commits
-focused. Pull requests should explain the change, list verification steps,
-link relevant issues, and include screenshots for visible interface changes.
+Use concise, imperative commit subjects, such as `Add authentication form`, and
+keep each commit focused. Pull requests should explain the change, list
+verification steps, link relevant issues, and include screenshots for visible
+interface changes.
 
 ## Security & Configuration
 
