@@ -21,6 +21,8 @@ void main() {
       FocusFlowApp(store: MemorySessionStore()),
     );
     await tester.pump();
+    await tester.ensureVisible(find.text('开始'));
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('开始'));
     await tester.pump();
