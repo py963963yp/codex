@@ -1,59 +1,54 @@
 # Repository Guidelines
 
-## Project Overview
-
-This repository currently contains only this contributor guide. It has no
-source code, tests, assets, or dependency manifest yet. Contributors should
-establish conventions with the first implementation and update this guide when
-tooling or directory structure is introduced.
-
 ## Project Structure & Module Organization
 
-Keep new files at the repository root until a clear structure is needed. When
-adding modules, create focused directories such as `src/`, `tests/`, and
-`assets/`, and document their purposes here. Place generated output in a
-dedicated, ignored directory; never commit build artifacts or secrets.
+Focus Flow is a Flutter application. Keep application code in `lib/`; shared
+state and services belong in `lib/src/`. Widget and controller tests live in
+`test/`. Android-specific configuration is under `android/`, while build and
+release automation belongs in `.github/workflows/`. Do not commit generated
+`build/`, `.dart_tool/`, or IDE files.
 
 ## Build, Test, and Development Commands
 
-No build, test, or run command is currently defined. The first change that
-introduces a language runtime or package manager must include a project
-manifest, a short setup procedure, and the canonical commands for local
-development. Record those commands here, for example:
-
 ```sh
-npm install   # Install dependencies
-npm test      # Run the test suite
-npm run dev   # Start the local development server
+flutter pub get                  # Install Dart dependencies
+flutter run                      # Run on a connected device or emulator
+dart format lib test             # Format Dart source
+flutter analyze                  # Run static analysis
+flutter test                     # Run unit and widget tests
+flutter build apk --release      # Build the Android release APK
 ```
 
-Use the actual commands supplied by the project tooling.
+The APK is written to `build/app/outputs/flutter-apk/app-release.apk`. Pushes
+to `main`, pull requests, and manual workflow runs execute the same checks and
+upload the artifact from `.github/workflows/android.yml`.
 
 ## Coding Style & Naming Conventions
 
-No formatter, linter, or language convention is established. Follow the
-conventions of existing code once present, use consistent indentation, and add
-the formatter and linter configuration in the same change that introduces the
-primary language. Prefer descriptive file, directory, and symbol names; use
-lowercase hyphenated names for documentation and shared configuration files.
+Use the official Dart formatter and satisfy `flutter_lints` in
+`analysis_options.yaml`. Follow the existing two-space indentation and trailing
+commas. Name Dart files and directories with `snake_case`, classes with
+`PascalCase`, and methods, variables, and enum values with `camelCase`. Keep
+business logic out of widgets and inject `SessionStore` implementations at the
+application boundary.
 
 ## Testing Guidelines
 
-No testing framework or coverage threshold exists yet. Add tests with each new
-behavior, place them beside related code or under `tests/`, and use descriptive
-names that state the expected behavior. Run the full test suite before
-submitting a change and document the command here when the first test tool is
-added.
+Add tests for timer transitions, controls, persistence, and visible behavior.
+Use descriptive test names that state the expected outcome. Place controller
+and model tests in `test/` using `flutter_test`, and run `flutter test` before
+opening a pull request. New behavior should include a focused test or an
+explanation of why a test is impractical.
 
 ## Commit & Pull Request Guidelines
 
-Use concise, imperative commit subjects, such as `Add authentication form`, and
-keep each commit focused. Pull requests should explain the change, list
-verification steps, link relevant issues, and include screenshots for visible
-interface changes.
+Use concise, imperative commit subjects, such as `Add rest timer preset`, and
+keep commits focused. Pull requests should explain user-visible changes, list
+verification commands, link relevant issues, and include screenshots for UI
+changes. Confirm that the Android APK workflow succeeds before merging.
 
 ## Security & Configuration
 
-Keep credentials and environment-specific settings out of version control.
-Provide safe example configuration instead, and note all required variables in
-the project documentation.
+Keep credentials, signing keys, and `android/local.properties` out of version
+control. The app requires no network permission in release builds. Add secrets
+through GitHub Actions secrets and document any new configuration.
